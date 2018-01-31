@@ -130,3 +130,11 @@ required params:
 ```
 id
 ```
+
+# TODO
+
+ - Data validation in Vue using `vee-validate`
+ - Date validation in lambda
+ - Refactor Frontend
+ - Deploy on S3 to solve:
+    - Cold boot issue with **Heroku** where the api call will fail silently
