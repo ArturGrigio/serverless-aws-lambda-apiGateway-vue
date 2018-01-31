@@ -11,12 +11,13 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "vue": "^2.5.2",
-    "vue-router": "^3.0.1",
+    "axios": "^0.17.1",
     "material-design-icons": "^3.0.1",
     "material-icons": "^0.1.0",
     "materialize-css": "^0.100.2",
-    "mdi": "^2.0.46"
+    "mdi": "^2.0.46",
+    "vue": "^2.5.2",
+    "vue-router": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

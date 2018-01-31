@@ -8,7 +8,6 @@ import 'materialize-css/dist/css/materialize.min.css';
 import 'mdi/css/materialdesignicons.min.css';
 
 Vue.config.productionTip = false
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

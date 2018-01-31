@@ -5,7 +5,7 @@
 
         <div class="container row no-padding">
 
-            <h1 class="thin">My Employees</h1>
+            <h2 id="add-employees" class="thin">My Employees</h2>
 
             <div class="col s12">
                 <addemployeevue></addemployeevue>
@@ -28,7 +28,7 @@
 <script>
 import addemployeevue from './partials/add_employee/Add.vue'
 import employeevue from './partials/employee/Employee.vue'
-import EmployeeModel from '../../../models/Employee.js';
+import axios from 'axios'
 
 export default {
     components: { addemployeevue, employeevue },
@@ -40,11 +40,13 @@ export default {
 
     methods: {
         getEmployees() {
-            this.employeeList.push(new EmployeeModel(1, 'John', 'Smith', 'asfasf@asdfadsf.com'))
-            this.employeeList.push(new EmployeeModel(2, 'John', 'Smith', 'asfasf@asdfadsf.com'))
-            this.employeeList.push(new EmployeeModel(3, 'John', 'Smith', 'asfasf@asdfadsf.com'))
-            this.employeeList.push(new EmployeeModel(4, 'John', 'Smith', 'asfasf@asdfadsf.com'))
-            this.employeeList.push(new EmployeeModel(5, 'John', 'Smith', 'asfasf@asdfadsf.com'))
+            let self = this
+            axios.get('https://iaeoli1xlg.execute-api.us-west-1.amazonaws.com/prod/employee/all')
+            .then(response => {
+                response.data.forEach(emp => {
+                    self.employeeList.push(emp)
+                })
+            })
         }
     },
 

@@ -59,7 +59,7 @@
 
         methods: {
             onFinish() {
-                this.function(this.modal_employee)
+                this.function(this.employee)
             }
         },
 

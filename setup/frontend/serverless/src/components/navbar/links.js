@@ -1,14 +1,14 @@
 export default [
     {
-        url: '#mission',
+        url: '#',
         text: 'Home'
     },
     {
-        url: '#about',
+        url: '#add-employees',
         text: 'Add Employees'
     },
     {
-        url: '#join',
+        url: 'https://github.com/ArturGrigio/serverless-aws-lambda-apiGateway-vue',
         text: 'Documentation'
     }
 ]

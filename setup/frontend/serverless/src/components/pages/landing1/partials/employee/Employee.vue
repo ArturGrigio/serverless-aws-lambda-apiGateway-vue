@@ -36,7 +36,7 @@
                 return this.employee.first + ' ' + this.employee.last
             },
             id() {
-                return '<strong>' + this.employee.employeeId + '</strong>'
+                return '<strong>' + this.employee.id + '</strong>'
             }
         },
 

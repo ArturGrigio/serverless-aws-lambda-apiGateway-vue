@@ -34,6 +34,7 @@ module.exports = {
     }],
   },
 "globals": {
-        "$": false
+        "$": false,
+        'axios': false
     }
 }

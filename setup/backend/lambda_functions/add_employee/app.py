@@ -25,14 +25,18 @@ logger.info("SUCCESS: Connection to RDS mysql instance succeeded")
 
 def handler(event, context):
 
-    add_employee = ("INSERT INTO employees (first, last, email) VALUES (%s, %s, %s)")
+    # if !(first in event and last in event and email in event):
+    #     return None
 
-    data_employee = ('Geert', 'Vanderkelen', 'asdfasdfasf@asdfasf.com')
+    add_employee = ("INSERT INTO `employees` (first, last, email) VALUES (%s, %s, %s)")
+
+    data_employee = (event['first'], event['last'], event['email'])
 
     emp_no = None
     # Insert new employee
     with conn.cursor() as cur:
         cur.execute(add_employee, data_employee)
+        conn.commit()
         emp_no = cur.lastrowid
 
     return emp_no
