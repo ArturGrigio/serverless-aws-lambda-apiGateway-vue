@@ -1,3 +1,5 @@
+# DEMO https://serverless-aws.herokuapp.com/
+
 # BACKEND SETUP
 
 ### 1) Setting up the RDS using `aws-cli`
@@ -25,8 +27,7 @@ Save the `ARN` ID for the role
 - Navigate to `/setup/rds_config.example.py` and update your credentials.
 - Rename the file to `rds_config.example.py`
 - Install   `pymysql`: `pip install pymysql -t /PATH/TO/DIRECTORY/`
-    - **NOTE**: AWS gotcha - if you're using MacOSX you'll need to install pymysql like explained here:
-    https://docs.aws.amazon.com/lambda/latest/dg/lambda-python-how-to-create-deployment-package.html
+    -
 - zip the `YOUR_FUNCTION/app.py` and `rds_config.py` into `app.zip`
     - you can use this command too `cd INTO/SETUP/DIRECTORY && zip -r app.zip app.py rds_config.py pymysql`
 
@@ -55,6 +56,34 @@ output.txt
 ```
 
 ### Repeat step 4 for each one of your lambda functions
+
+## Creating the API Gateway endpoints
+
+### Create the API gateway:
+
+```
+aws apigateway create-rest-api \
+--name serverless \
+--region us-west-1 \
+--profile profile
+```
+
+### Create a resource on the gateway:
+```
+aws apigateway create-resource \
+--rest-api-id api-id \
+--parent-id root-id \
+--path-part employee
+```
+
+### Create a method:
+```
+aws apigateway put-method \
+--rest-api-id api-id \
+--resource-id resource-id \
+--http-method POST \
+--authorization-type NONE
+```
 
 # FRONTEND SETUP
 
