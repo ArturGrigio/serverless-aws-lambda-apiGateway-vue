@@ -14,19 +14,14 @@ db_name = rds_config.db_name
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-try:
-    conn = pymysql.connect(rds_host, user=name, passwd=password, db=db_name, connect_timeout=3)
-    logger.info("\nSUCCSESS: Connection Established")
-except:
-    logger.error("ERROR: Unexpected error: Could not connect to MySql instance.")
-    sys.exit()
-
-logger.info("SUCCESS: Connection to RDS mysql instance succeeded")
-
 def handler(event, context):
 
-    # if !(first in event and last in event and email in event):
-    #     return None
+    try:
+        conn = pymysql.connect(rds_host, user=name, passwd=password, db=db_name, connect_timeout=3)
+        logger.info("\nSUCCSESS: Connection Established")
+    except:
+        logger.error("ERROR: Unexpected error: Could not connect to MySql instance.")
+        sys.exit()
 
     add_employee = ("INSERT INTO `employees` (first, last, email) VALUES (%s, %s, %s)")
 

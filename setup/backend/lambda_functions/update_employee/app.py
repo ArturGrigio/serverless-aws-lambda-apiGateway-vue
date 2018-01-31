@@ -2,6 +2,8 @@ import sys
 import logging
 import rds_config
 import pymysql
+import json
+
 #rds settings
 rds_host  = rds_config.db_endpoint
 name = rds_config.db_username
@@ -12,31 +14,26 @@ db_name = rds_config.db_name
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-try:
-    conn = pymysql.connect(rds_host, user=name, passwd=password, db=db_name, connect_timeout=5)
-except:
-    logger.error("ERROR: Unexpected error: Could not connect to MySql instance.")
-    sys.exit()
 
-logger.info("SUCCESS: Connection to RDS mysql instance succeeded")
 def handler(event, context):
-    """
-    This function fetches content from mysql RDS instance
-    """
 
-    item_count = 0
+    try:
+        conn = pymysql.connect(rds_host, user=name, passwd=password, db=db_name, connect_timeout=3)
+        logger.info("\nSUCCSESS: Connection Established")
+    except:
+        logger.error("ERROR: Unexpected error: Could not connect to MySql instance.")
+        sys.exit()
 
+
+    add_employee = ("UPDATE `employees` set first = %s, last = %s, email = %s where id = %s")
+
+    data_employee = (event['first'], event['last'], event['email'], event['id'])
+
+    emp_no = None
+    # Insert new employee
     with conn.cursor() as cur:
-        cur.execute("create table Employee3 ( EmpID  int NOT NULL, Name varchar(255) NOT NULL, PRIMARY KEY (EmpID))")
-        cur.execute('insert into Employee3 (EmpID, Name) values(1, "Joe")')
-        cur.execute('insert into Employee3 (EmpID, Name) values(2, "Bob")')
-        cur.execute('insert into Employee3 (EmpID, Name) values(3, "Mary")')
+        ret = cur.execute(add_employee, data_employee)
         conn.commit()
-        cur.execute("select * from Employee3")
-        for row in cur:
-            item_count += 1
-            logger.info(row)
-            #print(row)
 
 
-    return "Added %d items from RDS MySQL table" %(item_count)
+    return ret

@@ -14,20 +14,19 @@ db_name = rds_config.db_name
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-try:
-    conn = pymysql.connect(rds_host, user=name, passwd=password, db=db_name, connect_timeout=3)
-    logger.info("\nSUCCSESS: Connection Established")
-except:
-    logger.error("ERROR: Unexpected error: Could not connect to MySql instance.")
-    sys.exit()
-
-logger.info("SUCCESS: Connection to RDS mysql instance succeeded")
-
 def handler(event, context):
+
+    try:
+        conn = pymysql.connect(rds_host, user=name, passwd=password, db=db_name, connect_timeout=3)
+        logger.info("\nSUCCSESS: Connection Established")
+    except:
+        logger.error("ERROR: Unexpected error: Could not connect to MySql instance.")
+        sys.exit()
+
     output = []
 
     with conn.cursor() as cur:
-        cur.execute("select * from employees")
+        cur.execute("select * from `serverless`.`employees` limit 100")
         for row in cur:
             employee_dict = {
                 'id' : row[0],
