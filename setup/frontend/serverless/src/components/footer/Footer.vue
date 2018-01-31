@@ -1,6 +1,6 @@
 <template>
     <span>
-        <footer class="page-footer secondary-background">
+        <footer class="page-footer orange lighten-4">
             <div class="container">
                 <div class="row">
                     <div class="col m4 s12">

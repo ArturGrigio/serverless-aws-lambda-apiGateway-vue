@@ -9,15 +9,16 @@
                 :function="editFunction"
                 :modalemployee="employee"
                 modaltype="Edit"
-                :modalid="'modal-edit-'+employee.employeeId">
-                <a class="modal-trigger" :href="'#modal-edit-'+employee.employeeId"><i class="mdi mdi-pencil blue-text"></i></a>
+                :modalid="'modal-edit-'+employee.id">
+                <a class="modal-trigger" :href="'#modal-edit-'+employee.id"><i class="mdi mdi-pencil blue-text"></i></a>
             </modalvue>
-            <i class="mdi mdi-delete red-text" @click="deleteFunction(employee.employeeId)"></i>
+            <i class="mdi mdi-delete red-text" @click="deleteFunction(employee.id)"></i>
         </a>
     </div>
 </template>
 
 <script>
+    import axios from 'axios'
     import modalvue from '../modal/Modal.vue';
 
     export default {
@@ -41,12 +42,33 @@
         },
 
         methods: {
-            editFunction() {
-                console.log('edit function')
+            editFunction(emp) {
+                let self = this
+                axios.post('https://iaeoli1xlg.execute-api.us-west-1.amazonaws.com/prod/employee/update', {
+                    first: emp.first,
+                    last: emp.last,
+                    email: emp.email,
+                    id: emp.id
+                })
+                .then(response => {
+                    self.$store.dispatch('updateEmployee', emp)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
             },
 
             deleteFunction(id) {
-                console.log(id)
+                let self = this
+                axios.post('https://iaeoli1xlg.execute-api.us-west-1.amazonaws.com/prod/employee/delete', {
+                    'id': id
+                })
+                .then(response => {
+                    self.$store.dispatch('deleteEmployee', id)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
             }
         }
     }

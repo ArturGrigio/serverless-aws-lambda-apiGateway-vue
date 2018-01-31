@@ -42,10 +42,10 @@
         color: #0064a4;
     }
     .main-background {
-        background-color: #0064a4;
+        background-color: #5c9be5;
     }
     .secondary-color {
-        color: #ffd300;
+        color: #ffd300 !important;
     }
     .secondary-background {
         background-color: #ffd300;

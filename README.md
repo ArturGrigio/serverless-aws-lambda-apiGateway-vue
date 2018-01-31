@@ -99,4 +99,34 @@ vue init webpack serverless && cd serverless && npm install
 npm run build
 ```
 
-### 3) Deploy on a the S3 Bucket
+### 3) Deploy on heroku instance
+```
+cd INTO YOUR YOUR/PATH/setup/frontend/setup
+npm run build
+git add .
+git commit -a -m "Adding files."
+git push heroku master
+```
+
+## API endpoints
+
+#### Host: `https://iaeoli1xlg.execute-api.us-west-1.amazonaws.com/prod/`
+#### `employee/get` - GET
+
+#### `employee/add` - POST
+required params:
+```
+first, last, email
+```
+
+#### `employee/update` - POST
+required params:
+```
+id, first, last, email
+```
+
+#### `employee/delete` - POST
+required params:
+```
+id
+```

@@ -32,10 +32,9 @@ import axios from 'axios'
 
 export default {
     components: { addemployeevue, employeevue },
-
-    computed: {
-        employeeList() {
-            return this.$store.state.employeeList
+    data() {
+        return {
+            employeeList: []
         }
     },
 
@@ -44,7 +43,10 @@ export default {
             let self = this
             axios.get('https://iaeoli1xlg.execute-api.us-west-1.amazonaws.com/prod/employee/all')
             .then(response => {
-                self.$store.dispatch('setEmployees', response.data)
+                console.log(response.data)
+                response.data.forEach(emp => {
+                    self.employeeList.push(emp)
+                })
             })
             .catch(error => {
                 console.log(error)

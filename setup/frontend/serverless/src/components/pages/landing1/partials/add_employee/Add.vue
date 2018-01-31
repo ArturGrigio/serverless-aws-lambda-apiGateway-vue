@@ -14,7 +14,7 @@
 
 <script>
 import modalvue from '../modal/Modal.vue'
-import EmployeeModel from '../../../../../models/Employee.js'
+import Employee from '../../../../../models/Employee.js'
 import axios from 'axios'
 
 export default {
@@ -24,20 +24,22 @@ export default {
 
     data: function() {
         return {
-            employee: new EmployeeModel(null, 'John', 'Smith')
+            employee: new Employee()
         }
     },
 
     methods: {
         saveFunction(emp) {
             console.log(emp)
+            let self = this
             axios.post('https://iaeoli1xlg.execute-api.us-west-1.amazonaws.com/prod/employee/add', {
                 'first': emp.first,
                 'last': emp.last,
                 'email': emp.email
             })
             .then(response => {
-                console.log(response)
+                emp.id = response.data
+                self.$store.dispatch('pushEmployee', emp)
             })
         }
     }

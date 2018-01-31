@@ -53,13 +53,14 @@
 
         data: function() {
             return {
-                employee: this.modalemployee
+                employee: Object.assign({}, this.modalemployee)
             }
         },
 
         methods: {
             onFinish() {
                 this.function(this.employee)
+                this.employee = Object.assign({}, this.modalemployee)
             }
         },
 
